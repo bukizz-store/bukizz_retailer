@@ -1,9 +1,12 @@
 import 'package:bukizz_retailer/constants/theme.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/Login/login.dart';
 import 'package:bukizz_retailer/utils/routes/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

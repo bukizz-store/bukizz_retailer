@@ -1,5 +1,7 @@
 import 'package:bukizz_retailer/mvvm/views/Auth/Login/login.dart';
+import 'package:bukizz_retailer/mvvm/views/Auth/SignUp/signUP_screen.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/forgotPassword.dart';
+import 'package:bukizz_retailer/mvvm/views/ContactUs/contact_us.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -12,6 +14,14 @@ class RouteGenerator {
       case ForgotPasswordScreen.route:
         return MaterialPageRoute(
           builder: (_) => const ForgotPasswordScreen(),
+        );
+      case ContactUsScreen.route:
+        return MaterialPageRoute(
+          builder: (_) =>  ContactUsScreen(),
+        );
+      case SignUpScreen.route:
+        return MaterialPageRoute(
+          builder: (_) => const  SignUpScreen(),
         );
       default:
         return _errorRoute();
