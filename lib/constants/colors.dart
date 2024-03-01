@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class AppColors{
   static const Color primaryColor = Color(0xFF03045E);
   static const Color secondaryColor = Color(0xFF48CAE4);
@@ -18,5 +20,7 @@ class AppColors{
   static const Color bgColor =  Color(0xFFF5FAFF);
   static const Color lightTextColor =  Color(0xFF444444);
   static const Color forgotPasswordTextColor =  Color(0xFF00579E);
+  static const Color error =  Colors.grey;
+  static const Color green = Colors.green;
 
 }
