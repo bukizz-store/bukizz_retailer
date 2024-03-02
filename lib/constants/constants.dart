@@ -8,6 +8,7 @@ import 'colors.dart';
 class AppConstants {
   static late RetailerModel retailer;
   static String fcmToken = '';
+  static bool isLogin = false;
 
   static Future<void> showSnackBar(BuildContext context , String text , Color color , IconData icon , {int time = 2}) async {
     var snackBar = SnackBar(

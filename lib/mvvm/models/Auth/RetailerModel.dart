@@ -90,36 +90,31 @@ class RetailerModel{
           .where('email', isEqualTo: email)
           .get();
 
-      var fire = FirebaseDatabase.instance.ref().child('token').child(id);
-      await fire.set({'token': AppConstants.fcmToken});
-
       if (querySnapshot.docs.isEmpty) {
         // If no document with the same email exists, add a new document
         await FirebaseFirestore.instance.collection(AppString.collectionRetailer).doc(id).set(toMap());
 
       } else {
-        AppConstants.showSnackBar(context, "Already Registered !", AppColors.green, Icons.error_outline_rounded);
+        var fire = FirebaseDatabase.instance.ref().child('token').child(id);
+        await fire.set({'token': AppConstants.fcmToken});
       }
       AppConstants.retailer = RetailerModel.fromMap(toMap());
-
-      // AppConstants.userData = MainUserDetails.fromMap(toMap());
-      // print(toMap());
-
     } catch (e) {
       print('Error pushing user data to Firebase: $e');
     }
-
   }
 
   Future<void> saveToSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(AppString.collectionRetailer, jsonEncode(toMap()));
+    prefs.setBool('isLogin', true);
   }
 
-  Future<void> fetchFromSharedPref() async {
+  static Future<void> fetchFromSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var data = prefs.getString(AppString.collectionRetailer);
-    if (data != null) {
+    var data = prefs.getString(AppString.collectionRetailer) ?? '';
+    AppConstants.isLogin = prefs.getBool('isLogin') ?? false;
+    if (data.isNotEmpty) {
       AppConstants.retailer = RetailerModel.fromMap(jsonDecode(data));
     }
   }

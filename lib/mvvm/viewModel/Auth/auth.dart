@@ -64,7 +64,9 @@ class AuthViewModel extends ChangeNotifier {
           return;
         }
 
-        retailer.id = authResult.user!.uid;
+        // Navigator.pushNamed(context, )
+
+        // retailer.id = authResult.user!.uid;
         AppConstants.retailer = retailer;
 
         await retailer.pushToFirebase(context);
@@ -133,8 +135,7 @@ class AuthViewModel extends ChangeNotifier {
           status: 'inactive',
         );
         await retailer
-            .pushToFirebase(context)
-            .then((value) => Navigator.of(context).pop());
+            .pushToFirebase(context).then((value) => AppConstants.showSnackBar(context, "Registered Successfully", AppColors.green, Icons.check_circle));
       } else {
         print("Failed to Login");
       }
