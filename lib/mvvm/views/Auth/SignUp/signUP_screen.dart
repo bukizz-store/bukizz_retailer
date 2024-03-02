@@ -3,17 +3,21 @@ import 'dart:typed_data';
 
 import 'package:bukizz_retailer/constants/colors.dart';
 import 'package:bukizz_retailer/constants/dimensions.dart';
+import 'package:bukizz_retailer/mvvm/viewModel/Auth/auth.dart';
 import 'package:bukizz_retailer/utils/widgets/buttons/Reusable_Button.dart';
 import 'package:bukizz_retailer/utils/widgets/imagePicker.dart';
 import 'package:bukizz_retailer/utils/widgets/text%20and%20textforms/Reusable_TextForm.dart';
 import 'package:bukizz_retailer/utils/widgets/text%20and%20textforms/Reusable_text.dart';
 import 'package:bukizz_retailer/utils/widgets/text%20and%20textforms/textformAddress.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const route = '/signup';
@@ -33,22 +37,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController pinController = TextEditingController();
   TextEditingController schoolController = TextEditingController();
 
-  Future<void> getImage(String fileName) async {
-    final ImagePicker picker = ImagePicker();
+  String photoURL = '';
+  String adhaarURL = '';
+  String panURL = '';
 
+  Future<String> getImage(String fileName) async {
+    final ImagePicker picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    final File image = File(pickedFile!.path);
-    final file = basename(image.path);
-    try {
-      await FirebaseStorage.instance
-          .ref('Retailer/$file')
-          .putFile(image)
-          .then((element) => print("Element Inserted"));
-      print('Image uploaded successfully.');
-    } catch (e) {
-      print('Error uploading image to Firebase storage: $e');
-    }
+    if(pickedFile != null)
+      {
+        try {
+          final File image = File(pickedFile!.path);
+          final file = basename(image.path);
+          var data = await FirebaseStorage.instance
+              .ref('Retailer/$fileName/$file')
+              .putFile(image);
+          return data.ref.getDownloadURL();
+        } catch (e) {
+          print('Error uploading image to Firebase storage: $e');
+        }
+      }
+    return '';
   }
 
   @override
@@ -95,12 +105,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               ReusableText(text: 'Upload Your Photo', fontSize: 14,fontWeight: FontWeight.w600,color: AppColors.black,),
               SizedBox(height: dimensions.height8,),
-              imagePicker(
+              photoURL == '' ?imagePicker(
                 infoText: 'Upload files',
-                onTap: () {
-                  getImage('retailer1');
+                onTap: () async{
+                  photoURL = await getImage('photo');
+                  setState(() async{
+                  });
+                  print(photoURL);
                 },
-              ),
+              ) : Center(child: Image.network(photoURL ,width: 40.w , height: 20.h,)),
               SizedBox(
                 height: 16,
               ),
@@ -136,12 +149,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               ReusableText(text: 'Upload Your Aadhar', fontSize: 14,fontWeight: FontWeight.w600,color: AppColors.black,),
               SizedBox(height: dimensions.height8,),
-              imagePicker(
+              adhaarURL == '' ?imagePicker(
                 infoText: 'Upload files',
-                onTap: () {
-
+                onTap: () async{
+                    adhaarURL = await getImage('adhaar');
+                  setState((){
+                  });
                 },
-              ),
+              ): Center(child: Image.network(adhaarURL ,width: 40.w , height: 20.h,)),
               SizedBox(height: dimensions.height16,),
               CustomTextForm(
                   width: dimensions.width342,
@@ -155,12 +170,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               ReusableText(text: 'Upload Your PAN Card', fontSize: 14,fontWeight: FontWeight.w600,color: AppColors.black,),
               SizedBox(height: dimensions.height8,),
-              imagePicker(
+              panURL == '' ?imagePicker(
                 infoText: 'Upload files',
-                onTap: () {
-
+                onTap: () async{
+                    panURL = await getImage('pan');
+                  setState((){
+                  });
                 },
-              ),
+              ) : Center(child: Image.network(panURL ,width: 40.w , height: 20.h,)),
               SizedBox(height: dimensions.height16,),
               CustomTextForm(
                   width: dimensions.width342,
@@ -201,7 +218,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               SizedBox(height: dimensions.height16,),
               InkWell(
-                onTap: (){},
+                onTap: (){
+
+                },
                 child: Container(
                   width: dimensions.width10*12.5,
                   height: dimensions.height10*3.4,
@@ -225,7 +244,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ReusableElevatedButton(
                   width: dimensions.width342,
                   height: dimensions.height57,
-                  onPressed: () {},
+                  onPressed: () {
+                    // context.read<AuthViewModel>().emailSignUp(nameController.text, emailController.text, gstin, adhaar, pan, address, schools, password, context)
+                  },
                   buttonText: 'Create Account'),
               SizedBox(
                 height: dimensions.height105,
@@ -257,7 +278,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ReusableElevatedButton(
                   width: dimensions.width10 * 34.5,
                   height: dimensions.height10 * 5.4,
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   buttonText: 'Login',
                   buttonColor: Colors.white,
                   textColor: AppColors.black.withOpacity(0.8),

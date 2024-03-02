@@ -73,7 +73,7 @@ class AuthViewModel extends ChangeNotifier {
         await retailer.saveToSharedPref();
       } else {
         if (context.mounted) {
-          AppConstants.showSnackBar(context, "Failed to Login", AppColors.error,
+          AppConstants.showSnackBar(context, "User Not Signed In ", AppColors.error,
               Icons.error_outline_rounded);
           Navigator.of(context).pop();
         }
@@ -84,11 +84,15 @@ class AuthViewModel extends ChangeNotifier {
       String errorMessage = "An error occurred during sign-in.";
 
       if (e is FirebaseAuthException) {
+        print(e.code);
         if (e.code == 'user-not-found') {
           errorMessage = "No user found with this email.";
         } else if (e.code == 'wrong-password') {
           errorMessage = "Incorrect password.";
-        } else {
+        } else if(e.code == 'invalid-email') {
+            errorMessage = "User Not Signed Up";
+        }
+        else {
           errorMessage = "Error: ${e.message}";
         }
       }
@@ -96,7 +100,6 @@ class AuthViewModel extends ChangeNotifier {
       if (context.mounted) {
         AppConstants.showSnackBar(context, errorMessage, AppColors.error,
             Icons.error_outline_rounded);
-        Navigator.of(context).pop();
       }
       print("Error signing in: $e");
     }
