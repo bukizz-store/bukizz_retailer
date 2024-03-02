@@ -10,6 +10,7 @@ class CustomTextForm extends StatefulWidget {
   final IconData? icon;
   final String labelText;
   final bool isPasswordType;
+  final IconData ?trailingIcon;
 
   CustomTextForm({
     required this.width,
@@ -17,6 +18,7 @@ class CustomTextForm extends StatefulWidget {
     required this.controller,
     required this.hintText,
     this.icon, required this.labelText, required this.isPasswordType,
+    this.trailingIcon,
   });
 
   @override
@@ -73,6 +75,9 @@ class _CustomTextFormState extends State<CustomTextForm> {
             fontFamily: 'Nunito',
             fontWeight: FontWeight.w400,
             height: 0,
+          ),
+          labelStyle:TextStyle(
+            color: Colors.grey
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(widget.height / 2),

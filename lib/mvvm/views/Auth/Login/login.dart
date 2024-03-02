@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../NavBar/NavBar.dart';
+
 
 class SignInScreen extends StatefulWidget {
   static const route = '/signin';
@@ -60,7 +62,7 @@ class _SignInScreenState extends State<SignInScreen> {
               TextButton(onPressed: (){Navigator.pushNamed(context, ForgotPasswordScreen.route);}, child: ReusableText(text: 'Forgot Password',fontSize: 14,color: AppColors.forgotPasswordTextColor,)),
               SizedBox(height: dimensions.height24,),
 
-              ReusableElevatedButton(width: dimensions.width10*34.5, height: dimensions.height10*5.4, onPressed: (){}, buttonText: 'Login'),
+              ReusableElevatedButton(width: dimensions.width10*34.5, height: dimensions.height10*5.4, onPressed: (){Navigator.pushNamed(context, MainScreen.route);}, buttonText: 'Login'),
 
               SizedBox(height: dimensions.height48,),
               Row(

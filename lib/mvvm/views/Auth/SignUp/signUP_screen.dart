@@ -31,6 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController cityController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController pinController = TextEditingController();
+  TextEditingController schoolController = TextEditingController();
 
   Future<void> getImage(String fileName) async {
     final ImagePicker picker = ImagePicker();
@@ -92,6 +93,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: dimensions.height36,
               ),
+              ReusableText(text: 'Upload Your Photo', fontSize: 14,fontWeight: FontWeight.w600,color: AppColors.black,),
+              SizedBox(height: dimensions.height8,),
               imagePicker(
                 infoText: 'Upload files',
                 onTap: () {
@@ -131,6 +134,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: dimensions.height24,
               ),
+              ReusableText(text: 'Upload Your Aadhar', fontSize: 14,fontWeight: FontWeight.w600,color: AppColors.black,),
+              SizedBox(height: dimensions.height8,),
+              imagePicker(
+                infoText: 'Upload files',
+                onTap: () {
+
+                },
+              ),
+              SizedBox(height: dimensions.height16,),
               CustomTextForm(
                   width: dimensions.width342,
                   height: dimensions.height48,
@@ -141,6 +153,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: dimensions.height24,
               ),
+              ReusableText(text: 'Upload Your PAN Card', fontSize: 14,fontWeight: FontWeight.w600,color: AppColors.black,),
+              SizedBox(height: dimensions.height8,),
+              imagePicker(
+                infoText: 'Upload files',
+                onTap: () {
+
+                },
+              ),
+              SizedBox(height: dimensions.height16,),
               CustomTextForm(
                   width: dimensions.width342,
                   height: dimensions.height48,
@@ -171,6 +192,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: dimensions.height24,
               ),
+              ReusableText(text: 'Add Schools', fontSize: 14,fontWeight: FontWeight.w600,),
+              SizedBox(height: dimensions.height16,),
+              CustomTextForm(width: dimensions.width342,
+                  height: dimensions.height48,
+                  controller: schoolController, hintText: 'Add Schools',
+                  labelText: 'Add Schools', isPasswordType: false,
+              ),
+              SizedBox(height: dimensions.height16,),
+              InkWell(
+                onTap: (){},
+                child: Container(
+                  width: dimensions.width10*12.5,
+                  height: dimensions.height10*3.4,
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(width: 1, color: Color(0xFF00579E)),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.add,color: AppColors.forgotPasswordTextColor,size: 20,),
+                      ReusableText(text: 'Add Schools', fontSize: 14,fontWeight: FontWeight.w400,color: AppColors.forgotPasswordTextColor,)
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: dimensions.height16),
               ReusableElevatedButton(
                   width: dimensions.width342,
                   height: dimensions.height57,
@@ -214,6 +265,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: dimensions.height57,
               ),
+
+
             ],
           ),
         ),

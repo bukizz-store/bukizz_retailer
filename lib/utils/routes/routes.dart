@@ -1,8 +1,11 @@
+import 'package:bukizz_retailer/providers/bottom_nav_bar_provider.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/Login/login.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/SignUp/signUP_screen.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/forgotPassword.dart';
 import 'package:bukizz_retailer/mvvm/views/ContactUs/contact_us.dart';
 import 'package:flutter/material.dart';
+
+import '../../mvvm/views/NavBar/NavBar.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -22,6 +25,10 @@ class RouteGenerator {
       case SignUpScreen.route:
         return MaterialPageRoute(
           builder: (_) => const  SignUpScreen(),
+        );
+      case MainScreen.route:
+        return MaterialPageRoute(
+          builder: (_) => const MainScreen(),
         );
       default:
         return _errorRoute();
