@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../NavBar/NavBar.dart';
 
 class SignInScreen extends StatefulWidget {
   static const route = '/signin';
@@ -21,10 +22,9 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   String? validatePassword(String value) {
     RegExp regex =
-    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (value.isEmpty) {
       return 'Please enter password';
     } else {
@@ -44,10 +44,9 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
         body: SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: dimensions.width24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          padding: EdgeInsets.symmetric(horizontal: dimensions.width24),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(
               height: dimensions.height36 * 2,
             ),
@@ -114,7 +113,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 width: dimensions.width10 * 34.5,
                 height: dimensions.height10 * 5.4,
                 onPressed: () {
-                  context.read<AuthViewModel>().signInWithEmailAndPassword(emailController.text, passwordController.text, context);
+                  context.read<AuthViewModel>().signInWithEmailAndPassword(
+                      emailController.text, passwordController.text, context);
                 },
                 buttonText: 'Login'),
             SizedBox(
@@ -128,35 +128,105 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 1,
                   color: Colors.black26,
                 ),
+                SizedBox(
+                  height: dimensions.height24 * 2,
+                ),
                 ReusableText(
-                  text: 'New to Bukizz Shop?',
+                  text: 'Login',
+                  fontSize: 24,
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                ),
+                SizedBox(
+                  height: dimensions.height16,
+                ),
+                ReusableText(
+                  text: 'Enter your email and password to continue',
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: AppColors.lightTextColor,
                 ),
-                Container(
-                  width: dimensions.width10 * 9.6,
-                  height: 1,
-                  color: Colors.black26,
+                SizedBox(
+                  height: dimensions.height36,
                 ),
+                CustomTextForm(
+                  width: 345,
+                  height: 46,
+                  controller: emailController,
+                  hintText: 'Enter your Email',
+                  labelText: 'Email',
+                  isPasswordType: false,
+                ),
+                SizedBox(
+                  height: dimensions.height24,
+                ),
+                CustomTextForm(
+                  width: 345,
+                  height: 46,
+                  controller: passwordController,
+                  hintText: 'Enter your password',
+                  labelText: 'Password',
+                  isPasswordType: true,
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, ForgotPasswordScreen.route);
+                    },
+                    child: ReusableText(
+                      text: 'Forgot Password',
+                      fontSize: 14,
+                      color: AppColors.forgotPasswordTextColor,
+                    )),
+                SizedBox(
+                  height: dimensions.height24,
+                ),
+                ReusableElevatedButton(
+                    width: dimensions.width10 * 34.5,
+                    height: dimensions.height10 * 5.4,
+                    onPressed: () {
+                      context.read<AuthViewModel>().signInWithEmailAndPassword(emailController.text, passwordController.text, context);
+                    },
+                    buttonText: 'Login'),
+                SizedBox(
+                  height: dimensions.height48,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: dimensions.width10 * 9.6,
+                      height: 1,
+                      color: Colors.black26,
+                    ),
+                    ReusableText(
+                      text: 'New to Bukizz Shop?',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.lightTextColor,
+                    ),
+                    Container(
+                      width: dimensions.width10 * 9.6,
+                      height: 1,
+                      color: Colors.black26,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: dimensions.height16 * 2,
+                ),
+                ReusableElevatedButton(
+                    width: dimensions.width10 * 34.5,
+                    height: dimensions.height10 * 5.4,
+                    onPressed: () {
+                      Navigator.pushNamed(context, SignUpScreen.route);
+                    },
+                    buttonText: 'Create a new account',
+                    buttonColor: Colors.white,
+                    textColor: AppColors.black.withOpacity(0.8),
+                    shadowColor: AppColors.lightTextColor.withOpacity(0.2)),
               ],
             ),
-            SizedBox(
-              height: dimensions.height16 * 2,
-            ),
-            ReusableElevatedButton(
-                width: dimensions.width10 * 34.5,
-                height: dimensions.height10 * 5.4,
-                onPressed: () {
-                  Navigator.pushNamed(context, SignUpScreen.route);
-                },
-                buttonText: 'Create a new account',
-                buttonColor: Colors.white,
-                textColor: AppColors.black.withOpacity(0.8),
-                shadowColor: AppColors.lightTextColor.withOpacity(0.2)),
-          ],
-        ),
-      ),
+          ])),
     ));
   }
 }
