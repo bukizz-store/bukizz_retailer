@@ -9,7 +9,7 @@ import '../../../constants/colors.dart';
 import '../../../providers/bottom_nav_bar_provider.dart';
 import '../NavBar_Screens/DashBBoard_Screen.dart';
 import '../NavBar_Screens/Notification_Screen.dart';
-import '../NavBar_Screens/Order_screen.dart';
+import '../NavBar_Screens/Orders/Order_screen.dart';
 import '../NavBar_Screens/Product_screen.dart';
 import '../NavBar_Screens/Wallet_Screen.dart';
 
