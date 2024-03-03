@@ -1,5 +1,6 @@
 import 'package:bukizz_retailer/constants/dimensions.dart';
 import 'package:bukizz_retailer/mvvm/viewModel/orders/orders.dart';
+import 'package:bukizz_retailer/mvvm/views/NavBar_Screens/Orders/Bill/bill_screen.dart';
 import 'package:bukizz_retailer/utils/widgets/spacing/spacing.dart';
 import 'package:bukizz_retailer/utils/widgets/text%20and%20textforms/Reusable_text.dart';
 import 'package:flutter/material.dart';
@@ -198,7 +199,8 @@ class _PendingOrderTabsState extends State<PendingOrderTabs> {
                                 20.verticalSpace,
                                 InkWell(
                                   onTap: (){
-
+                                    showCustomAboutDialog(context);
+                                    return;
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -298,4 +300,84 @@ class _PendingOrderTabsState extends State<PendingOrderTabs> {
     },);
 
   }
+}
+
+
+void showCustomAboutDialog(BuildContext context) {
+  Dimensions dimensions=Dimensions(context);
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return  AlertDialog(
+          title: Center(
+            child: Column(
+              children: [
+                ReusableText(text: 'Are You ready to pack this order', fontSize: 16,fontWeight: FontWeight.w700,color: Color(0xFF121212),),
+                SizedBox(height: dimensions.height10*2,),
+                const SizedBox(
+                  width: 294,
+                  child: Text(
+                    'Please ensure all items are checked and ready for shipment.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF444444),
+                      fontSize: 12,
+                      fontFamily: 'Nunito',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          content:Container(
+            // width: dimensions.width10*35.6,
+            height: dimensions.height10*8.5,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                   Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    width: dimensions.width10*11.5,
+                    height: dimensions.height10*3.5,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(width: 0.50, color: Color(0xFF00579E)),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    child: Center(
+                      child: ReusableText(text: 'Cancel', fontSize: 14,fontWeight: FontWeight.w600, color: Color(0xFF00579E),),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, BillScreen.route);
+                  },
+                  child: Container(
+                    width: dimensions.width10*11.5,
+                    height: dimensions.height10*3.5,
+                    decoration: ShapeDecoration(
+                      color: Color(0xFF058FFF),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                    ),
+                    child: Center(
+                      child: ReusableText(text: 'Pack', fontSize: 14,fontWeight: FontWeight.w600, color:Colors.white,),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+
+      );
+
+    },
+  );
 }

@@ -1,3 +1,4 @@
+import 'package:bukizz_retailer/mvvm/views/NavBar_Screens/Orders/Bill/bill_screen.dart';
 import 'package:bukizz_retailer/providers/bottom_nav_bar_provider.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/Login/login.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/SignUp/signUP_screen.dart';
@@ -29,6 +30,10 @@ class RouteGenerator {
       case MainScreen.route:
         return MaterialPageRoute(
           builder: (_) => const MainScreen(),
+        );
+      case BillScreen.route:
+        return MaterialPageRoute(
+          builder: (_) => const BillScreen(),
         );
       default:
         return _errorRoute();
