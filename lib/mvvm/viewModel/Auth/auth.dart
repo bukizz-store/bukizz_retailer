@@ -70,7 +70,7 @@ class AuthViewModel extends ChangeNotifier {
           errorMessage = "Please Enter correct password";
         } else if (e.code == 'too-many-requests') {
           errorMessage = "Too many requests. Try again later.";
-        } else if (e.code == 'unknwon') {
+        } else if (e.code == 'unknown') {
           errorMessage = "Unknown Error";
         } else {
           errorMessage = "Error: ${e.message}";
@@ -142,7 +142,7 @@ class AuthViewModel extends ChangeNotifier {
           errorMessage = "No Internet Connection";
         } else if (e.code == 'too-many-requests') {
           errorMessage = "Too many requests. Try again later.";
-        } else if (e.code == 'unknwon') {
+        } else if (e.code == 'unknown') {
           errorMessage = "Unknown Error";
         }else {
           errorMessage = "Error: ${e.message}";

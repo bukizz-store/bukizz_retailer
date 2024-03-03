@@ -18,6 +18,15 @@ class Order extends ChangeNotifier {
     _fetchOrders();
   }
 
+  late OrderModel _selectedOrder ;
+
+  OrderModel get getSelectedOrder => _selectedOrder;
+
+  void setSelectedOrder(OrderModel order){
+    _selectedOrder = order;
+    notifyListeners();
+  }
+
   int totalSale = 0;
 
   int get getTotalSale => totalSale;

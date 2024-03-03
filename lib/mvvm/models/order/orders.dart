@@ -1,3 +1,4 @@
+import 'package:bukizz_retailer/mvvm/models/address/OrderAddress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../address/AddressModel.dart';
@@ -10,7 +11,7 @@ class OrderModel{
   double totalAmount;
   double saleAmount;
   int deliveryCharge;
-  Address address;
+  OrderAddress address;
   Map<String , dynamic> cartData;
   int cartLength;
   String status;
@@ -63,7 +64,7 @@ class OrderModel{
       totalAmount: map['totalAmount'] ?? 0.0,
       saleAmount: map['saleAmount'] ?? 0.0,
       deliveryCharge: map['deliveryCharge'] ?? 0,
-      address: Address.fromMap(map['address']),
+      address: OrderAddress.fromMap(map['address']),
       cartData: map['cartData'],
       cartLength: map['cartLength'] ?? 0,
       status: map['status'] ?? '',
@@ -83,7 +84,7 @@ class OrderModel{
       totalAmount: data['totalAmount'] ?? 0.0,
       saleAmount: data['saleAmount'] ?? 0.0,
       deliveryCharge: data['deliveryCharge'] ?? 0,
-      address: Address.fromMap(data['address']),
+      address: OrderAddress.fromMap(data['address']),
       cartData: data['cartData'],
       cartLength: data['cartLength'] ?? 0,
       status: data['status'] ?? '',
