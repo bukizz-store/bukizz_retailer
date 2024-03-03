@@ -22,6 +22,8 @@ import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../models/address/AddressModel.dart';
+
 class SignUpScreen extends StatefulWidget {
   static const route = '/signup';
   const SignUpScreen({super.key});
@@ -43,6 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController areaController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController gstController = TextEditingController();
+  TextEditingController passController = TextEditingController();
 
   String photoURL = '';
   String adhaarURL = '';
@@ -157,6 +160,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 hintText: 'Email',
                 labelText: 'Email',
                 isPasswordType: false,
+                type: InputType.email,
+              ),
+              SizedBox(
+                height: dimensions.height24,
+              ),
+              CustomTextForm(
+                width: dimensions.width342,
+                height: dimensions.height48,
+                controller: passController,
+                hintText: 'Password',
+                labelText: 'Password',
+                isPasswordType: true,
                 type: InputType.email,
               ),
               SizedBox(
@@ -457,7 +472,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: dimensions.width342,
                   height: dimensions.height57,
                   onPressed: () {
-                    // context.read<AuthViewModel>().emailSignUp(nameController.text, emailController.text, gstin, adhaar, pan, address, schools, password, context)
+                  Address address = Address(street: areaController.text, city: cityController.text, state: stateController.text, pinCode: pinController.text, shopNo: addressController.text);
+
+                    context.read<AuthViewModel>().emailSignUp(nameController.text, emailController.text, mobileController.text, gstController.text, aadharController.text, panController.text, address, schools,passController.text, context);
                   },
                   buttonText: 'Create Account'),
               SizedBox(

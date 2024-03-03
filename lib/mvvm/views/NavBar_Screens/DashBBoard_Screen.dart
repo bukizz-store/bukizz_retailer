@@ -1,9 +1,11 @@
 import 'package:bukizz_retailer/constants/colors.dart';
 import 'package:bukizz_retailer/constants/dimensions.dart';
 import 'package:bukizz_retailer/constants/images.dart';
+import 'package:bukizz_retailer/mvvm/viewModel/orders/orders.dart';
 import 'package:bukizz_retailer/utils/widgets/text%20and%20textforms/Reusable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -17,6 +19,12 @@ List buttonName=['All','New Orders','Status Update','Product'];
 
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int selectedIndex=0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Dimensions dimensions=Dimensions(context);
@@ -36,7 +44,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: (){},
+                      onTap: (){
+
+                      },
                       child: Container(
                         width: dimensions.width10*15,
                         height: dimensions.height10*15,

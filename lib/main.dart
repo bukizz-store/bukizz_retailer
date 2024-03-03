@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
         providers: providers,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
             initialRoute: SignInScreen.route,
             onGenerateRoute: RouteGenerator.generateRoute,
           theme: AppTheme.lightThemeData,

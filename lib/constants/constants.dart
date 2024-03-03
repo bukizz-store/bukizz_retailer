@@ -27,10 +27,10 @@ class AppConstants {
       backgroundColor: Colors.transparent,
       content: GestureDetector(
         onTap: (){
+
         },
         child: Container(
           width: 270,
-          height: 40,
           // padding: const EdgeInsets.all(16),
           padding: EdgeInsets.only(left: 10),
           clipBehavior: Clip.antiAlias,
@@ -47,15 +47,18 @@ class AppConstants {
               10.horizontalSpace,
               SizedBox(
                 width: 70.w,
-                child: Text(
-                  text,
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'nunito',
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.white,
-                      overflow: TextOverflow.ellipsis
-                  ),
+                child: Wrap(
+                  children: [
+                    Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'nunito',
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ],
                 ),
               )
 

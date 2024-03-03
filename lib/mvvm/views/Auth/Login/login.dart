@@ -26,6 +26,15 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController passwordController = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(AppConstants.isLogin)
+      {
+        Navigator.pushNamedAndRemoveUntil(context, MainScreen.route , (route) => false);
+      }
+  }
+  @override
   Widget build(BuildContext context) {
     Dimensions dimensions = Dimensions(context);
     return Scaffold(

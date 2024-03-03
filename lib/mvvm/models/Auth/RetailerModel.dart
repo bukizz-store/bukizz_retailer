@@ -19,12 +19,15 @@ class RetailerModel{
   String phone;
   String email;
   String password;
-  String image;
+  String photo;
+  String panImage;
+  String aadharImage;
   String gstin;
   String pan;
   String aadhar;
   String fcmToken;
   String status;
+  List<dynamic> schools ;
 
   RetailerModel({
     required this.id,
@@ -33,12 +36,15 @@ class RetailerModel{
     required this.phone,
     required this.email,
     required this.password,
-    required this.image,
+    required this.photo,
     required this.gstin,
     required this.pan,
     required this.aadhar,
     required this.fcmToken,
     required this.status,
+    required this.schools,
+    required this.panImage,
+    required this.aadharImage,
   });
 
   Map<String, dynamic> toMap() {
@@ -49,12 +55,15 @@ class RetailerModel{
       'phone': phone,
       'email': email,
       'password': password,
-      'image': image,
+      'photo': photo,
       'gstin': gstin,
       'pan': pan,
       'aadhar': aadhar,
       'fcmToken': fcmToken,
       'status': status,
+      'schools': schools,
+      'panImage': panImage,
+      'aadharImage': aadharImage,
     };
   }
 
@@ -66,12 +75,15 @@ class RetailerModel{
       phone: map['phone'] ?? '',
       email: map['email'] ?? '',
       password: map['password'] ?? '',
-      image: map['image'] ?? '',
+      photo: map['photo'] ?? '',
       gstin: map['gstin'] ?? '',
       pan: map['pan'] ?? '',
       aadhar: map['aadhar'] ?? '',
       fcmToken: map['fcmToken'] ?? '',
       status: map['status'] ?? '',
+      schools: map['schools'] ?? [],
+      panImage: map['panImage'] ?? '',
+      aadharImage: map['aadharImage'] ?? '',
     );
   }
 
