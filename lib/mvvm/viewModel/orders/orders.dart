@@ -40,12 +40,15 @@ class Order extends ChangeNotifier {
   }
 
   Future<void> _fetchOrders() async {
+
     try {
       FirebaseFirestore.instance
           .collection('orderDetails')
           .where('retailerId', isEqualTo: AppConstants.retailer.id)
           .snapshots()
           .listen((snapshot) {
+            orders.clear();
+            totalSale = 0;
             for (var doc in snapshot.docs) {
               OrderModel order = OrderModel.fromFirestore(doc);
               totalSale += order.saleAmount.toInt();
@@ -57,10 +60,4 @@ class Order extends ChangeNotifier {
       print("Error fetching orders: $e");
     }
   }
-
-  // void setTotalSale() {
-  //   orders.forEach((element) {
-  //     totalSale += element.saleAmount.toInt();});
-  //   notifyListeners();
-  // }
 }

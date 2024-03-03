@@ -243,52 +243,58 @@ class _PendingOrderTabsState extends State<PendingOrderTabs> {
                         itemCount: packedOrders.length,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context,index){
-                          return Container(
-                            margin: EdgeInsets.only(bottom: dimensions.width24),
-                            padding: EdgeInsets.symmetric(horizontal: dimensions.width10*2,vertical: dimensions.height10*2),
-                            color: Colors.white,
-                            width: dimensions.screenWidth,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ReusableText(text: '#${packedOrders[index].orderId.split("-")[0]}', fontSize: 16,fontWeight: FontWeight.w700,),
-                                    Column(
-                                      children: [
-                                        ReusableText(text: 'Amount', fontSize: 12,color: AppColors.lightTextColor,),
-                                        20.verticalSpace,
-                                        ReusableText(text: '₹ ${packedOrders[index].saleAmount}', fontSize: 16)
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: dimensions.height10*1.2,),
-                                SizedBox(
-                                  width: dimensions.width10*19,
-                                  child: Text(
-                                    '${packedOrders[index].cartData.keys.first}',
-                                    style: TextStyle(
-                                      color: Color(0xFF121212),
-                                      fontSize: 12,
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.w400,
-                                      height: 0,
+                          return GestureDetector(
+                            onTap: (){
+                              context.read<order.Order>().setSelectedOrder(packedOrders[index]);
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => BillScreen()));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(bottom: dimensions.width24),
+                              padding: EdgeInsets.symmetric(horizontal: dimensions.width10*2,vertical: dimensions.height10*2),
+                              color: Colors.white,
+                              width: dimensions.screenWidth,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ReusableText(text: '#${packedOrders[index].orderId.split("-")[0]}', fontSize: 16,fontWeight: FontWeight.w700,),
+                                      Column(
+                                        children: [
+                                          ReusableText(text: 'Amount', fontSize: 12,color: AppColors.lightTextColor,),
+                                          20.verticalSpace,
+                                          ReusableText(text: '₹ ${packedOrders[index].saleAmount}', fontSize: 16)
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: dimensions.height10*1.2,),
+                                  SizedBox(
+                                    width: dimensions.width10*19,
+                                    child: Text(
+                                      '${packedOrders[index].cartData.keys.first}',
+                                      style: TextStyle(
+                                        color: Color(0xFF121212),
+                                        fontSize: 12,
+                                        fontFamily: 'Nunito',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(height: dimensions.height10,),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ReusableText(text: 'Status:', fontSize: 12,color: AppColors.lightTextColor,fontWeight: FontWeight.w400,),
-                                    SizedBox(width: 4,),
-                                    ReusableText(text: packedOrders[index].status, fontSize: 12,color: Color(0xFF058FFF),)
-                                  ],
-                                ),
+                                  SizedBox(height: dimensions.height10,),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ReusableText(text: 'Status:', fontSize: 12,color: AppColors.lightTextColor,fontWeight: FontWeight.w400,),
+                                      SizedBox(width: 4,),
+                                      ReusableText(text: packedOrders[index].status, fontSize: 12,color: Color(0xFF058FFF),)
+                                    ],
+                                  ),
 
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         }
@@ -363,6 +369,7 @@ class _PendingOrderTabsState extends State<PendingOrderTabs> {
                         'status':'Packed'
                       }).then((value) {
                         context.read<order.Order>().setSelectedOrder(orderData);
+                        Navigator.of(context).pop();
                         Navigator.push(context, MaterialPageRoute(builder: (_) => BillScreen()));
                       }).catchError((e){
                         AppConstants.showSnackBar(context, e.toString(), AppColors.error, Icons.error_outline_rounded);
