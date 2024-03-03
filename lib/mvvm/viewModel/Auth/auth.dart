@@ -62,12 +62,17 @@ class AuthViewModel extends ChangeNotifier {
         print(e.code);
         if (e.code == 'user-not-found') {
           errorMessage = "No user found with this email.";
-        } else if (e.code == 'wrong-password') {
-          errorMessage = "Incorrect password.";
         } else if(e.code == 'invalid-email') {
             errorMessage = "User Not Signed Up";
-        }
-        else {
+        } else if (e.code == 'network-request-failed') {
+          errorMessage = "No Internet Connection";
+        } else if (e.code == "wrong-password") {
+          errorMessage = "Please Enter correct password";
+        } else if (e.code == 'too-many-requests') {
+          errorMessage = "Too many requests. Try again later.";
+        } else if (e.code == 'unknwon') {
+          errorMessage = "Unknown Error";
+        } else {
           errorMessage = "Error: ${e.message}";
         }
       }
@@ -127,11 +132,22 @@ class AuthViewModel extends ChangeNotifier {
       if (e is FirebaseAuthException) {
         if (e.code == 'email-already-in-use') {
           errorMessage = "Email already in use.";
-        } else {
+        } else if(e.code == 'invalid-email') {
+            errorMessage = "Invalid Email";
+        } else if(e.code == 'operation-not-allowed'){
+          errorMessage = "Account disabled , Contact Admin";
+        } else if(e.code == 'weak-password'){
+          errorMessage = "Password is too weak";
+        } else if (e.code == 'network-request-failed') {
+          errorMessage = "No Internet Connection";
+        } else if (e.code == 'too-many-requests') {
+          errorMessage = "Too many requests. Try again later.";
+        } else if (e.code == 'unknwon') {
+          errorMessage = "Unknown Error";
+        }else {
           errorMessage = "Error: ${e.message}";
         }
       }
-
       if (context.mounted) {
         AppConstants.showSnackBar(context, errorMessage, AppColors.error,
             Icons.error_outline_rounded);

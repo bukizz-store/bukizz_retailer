@@ -18,6 +18,10 @@ class Order extends ChangeNotifier {
     _fetchOrders();
   }
 
+  int totalSale = 0;
+
+  int get getTotalSale => totalSale;
+
   bool orderLoaded = true;
 
   bool get isOrderLoaded => orderLoaded;
@@ -33,12 +37,21 @@ class Order extends ChangeNotifier {
           .where('retailerId', isEqualTo: AppConstants.retailer.id)
           .snapshots()
           .listen((snapshot) {
-        _orders =
-            snapshot.docs.map((doc) => OrderModel.fromFirestore(doc)).toList();
+            for (var doc in snapshot.docs) {
+              OrderModel order = OrderModel.fromFirestore(doc);
+              totalSale += order.saleAmount.toInt();
+              _orders.add(order);
+            }
         notifyListeners(); // Notify listeners about the change
       });
     } catch (e) {
       print("Error fetching orders: $e");
     }
   }
+
+  // void setTotalSale() {
+  //   orders.forEach((element) {
+  //     totalSale += element.saleAmount.toInt();});
+  //   notifyListeners();
+  // }
 }

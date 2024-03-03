@@ -103,7 +103,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 ),
                                 ReusableText(text: 'Total Sales', fontSize: 16,fontWeight: FontWeight.w400,),
                                 SizedBox(height: dimensions.height24,),
-                                ReusableText(text: '₹ 40000', fontSize: 16)
+                                ReusableText(text: '₹ ${orderData.totalSale}', fontSize: 16)
                               ],
                             ),
                           ),
