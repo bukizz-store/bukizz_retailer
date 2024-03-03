@@ -73,6 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
               hintText: 'Enter your Email',
               labelText: 'Email',
               isPasswordType: false,
+              type: InputType.all,
             ),
             SizedBox(
               height: dimensions.height24,
@@ -84,6 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
               hintText: 'Enter your password',
               labelText: 'Password',
               isPasswordType: true,
+              type: InputType.all,
             ),
             TextButton(
                 onPressed: () {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../constants/font_family.dart';
 
@@ -9,8 +10,12 @@ class ReusableTextField extends StatefulWidget {
   final IconData icon;
   final bool isPasswordType;
   final TextEditingController controller;
+  final bool isPhoneNo;
+  final bool isPinCode;
+  final bool isEmail;
 
-  ReusableTextField(this.text, this.icon, this.isPasswordType, this.controller);
+  ReusableTextField(this.text, this.icon, this.isPasswordType, this.controller,
+      {this.isPhoneNo=false, this.isPinCode=false, this.isEmail=false});
 
   @override
   _ReusableTextFieldState createState() => _ReusableTextFieldState();
@@ -20,8 +25,22 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
 
   bool isPasswordVisible = false;
 
+
   @override
   Widget build(BuildContext context) {
+    TextInputType keyboardType;
+    List<TextInputFormatter>? inputFormatters;
+
+    if (widget.isPinCode) {
+      keyboardType = TextInputType.number;
+      inputFormatters = [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6)];
+    } else if (widget.isPhoneNo) {
+      keyboardType = TextInputType.phone;
+      inputFormatters = [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)];
+    } else {
+      keyboardType = TextInputType.text;
+      inputFormatters = null;
+    }
     return TextField(
       controller: widget.controller,
       obscureText: widget.isPasswordType && !isPasswordVisible,

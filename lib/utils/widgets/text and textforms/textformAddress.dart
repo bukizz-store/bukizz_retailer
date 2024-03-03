@@ -1,4 +1,6 @@
+import 'package:bukizz_retailer/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../constants/dimensions.dart';
 
@@ -11,6 +13,7 @@ class CustomTextForm extends StatefulWidget {
   final String labelText;
   final bool isPasswordType;
   final IconData ?trailingIcon;
+  final InputType type;
 
   CustomTextForm({
     required this.width,
@@ -19,6 +22,7 @@ class CustomTextForm extends StatefulWidget {
     required this.hintText,
     this.icon, required this.labelText, required this.isPasswordType,
     this.trailingIcon,
+    required this.type
   });
 
   @override
@@ -31,10 +35,25 @@ class _CustomTextFormState extends State<CustomTextForm> {
   @override
   Widget build(BuildContext context) {
     Dimensions dimensions = Dimensions(context);
+    TextInputType keyboardType;
+    List<TextInputFormatter>? inputFormatters;
+
+    if (widget.type == InputType.pinCode) {
+      keyboardType = TextInputType.number;
+      inputFormatters = [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6)];
+    } else if (widget.type == InputType.phone) {
+      keyboardType = TextInputType.phone;
+      inputFormatters = [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(10)];
+    } else {
+      keyboardType = TextInputType.emailAddress;
+      inputFormatters = null;
+    }
     return Container(
       width: widget.width,
       height: widget.height,
       child: TextField(
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
         controller: widget.controller,
         obscureText: widget.isPasswordType && !isPasswordVisible,
         enableSuggestions: !widget.isPasswordType,

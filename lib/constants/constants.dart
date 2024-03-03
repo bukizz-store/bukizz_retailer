@@ -6,7 +6,12 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../mvvm/models/Auth/RetailerModel.dart';
 import 'colors.dart';
 
+enum InputType{
+  email, phone , pinCode , all
+}
+
 class AppConstants {
+
   static late RetailerModel retailer;
   static String fcmToken = '';
   static bool isLogin = false;

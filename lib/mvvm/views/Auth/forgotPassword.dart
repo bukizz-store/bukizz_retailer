@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../constants/constants.dart';
+
 
 class ForgotPasswordScreen extends StatefulWidget {
   static const route='/forgot';
@@ -57,7 +59,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 ),
                 SizedBox(height: dimensions.height36,),
-                CustomTextForm(width: dimensions.width10*34.5, height: dimensions.height10*4.6, controller: emailController, hintText: 'Enter your Email', labelText: 'Email', isPasswordType: false,),
+                CustomTextForm(width: dimensions.width10*34.5, height: dimensions.height10*4.6, controller: emailController, hintText: 'Enter your Email', labelText: 'Email', isPasswordType: false,
+                  type: InputType.all,
+                ),
                 SizedBox(height: dimensions.height24,),
 
 
