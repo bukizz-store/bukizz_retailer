@@ -40,12 +40,12 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
+        children: const [
           PendingOrderTabs(),
-          OrderTabs(),
-          OrderTabs(),
-          OrderTabs(),
-          OrderTabs()
+          OrderTabs(status: 'Out For Delivery',),
+          OrderTabs(status: 'Delivered',),
+          OrderTabs(status: 'Redelivery',),
+          OrderTabs(status: 'Canceled',)
         ],
       ),
     );
