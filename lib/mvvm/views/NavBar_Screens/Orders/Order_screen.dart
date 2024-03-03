@@ -1,4 +1,5 @@
 import 'package:bukizz_retailer/constants/images.dart';
+import 'package:bukizz_retailer/mvvm/views/NavBar_Screens/Orders/order_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -28,7 +29,7 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
           controller: _tabController,
           isScrollable: true,
           tabs: [
-            Tab(text: 'Pending',icon: SvgPicture.asset(AppImage.profileIcon),),
+            Tab(text: 'Pending',),
             Tab(text: 'Out for Delivery'),
             Tab(text: 'Delivered'),
             Tab(text: 'Redelivery'),
@@ -39,16 +40,15 @@ class _OrderScreenState extends State<OrderScreen> with SingleTickerProviderStat
       body: TabBarView(
         controller: _tabController,
         children: [
+          OrderTabs(),
           Center(
-            child: Text("1"),
-          ),Center(
             child: Text("2"),
           ),Center(
             child: Text("3"),
           ),Center(
-            child: Text(""),
+            child: Text("4"),
           ),Center(
-            child: Text("1"),
+            child: Text("5"),
           ),
         ],
       ),

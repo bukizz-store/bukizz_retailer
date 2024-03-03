@@ -29,11 +29,21 @@ class _SignInScreenState extends State<SignInScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(AppConstants.isLogin)
-      {
-        Navigator.pushNamedAndRemoveUntil(context, MainScreen.route , (route) => false);
-      }
+    print(AppConstants.isLogin);
+    isLogin();
   }
+
+
+  isLogin(){
+    Future.delayed(const Duration(milliseconds: 10), () async {
+      if(AppConstants.isLogin)
+      {
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => MainScreen()), (route) => false);
+      }
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     Dimensions dimensions = Dimensions(context);

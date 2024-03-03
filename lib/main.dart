@@ -1,5 +1,7 @@
+import 'package:bukizz_retailer/constants/constants.dart';
 import 'package:bukizz_retailer/constants/theme.dart';
 import 'package:bukizz_retailer/mvvm/models/Auth/RetailerModel.dart';
+import 'package:bukizz_retailer/mvvm/views/NavBar/NavBar.dart';
 import 'package:bukizz_retailer/providers/provider.dart';
 import 'package:bukizz_retailer/mvvm/views/Auth/Login/login.dart';
 import 'package:bukizz_retailer/utils/routes/routes.dart';
@@ -12,6 +14,7 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   RetailerModel.fetchFromSharedPref();
+
   runApp(const MyApp());
 }
 
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
       return MultiProvider(
         providers: providers,
         child: MaterialApp(
-          debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner: false,
             initialRoute: SignInScreen.route,
             onGenerateRoute: RouteGenerator.generateRoute,
           theme: AppTheme.lightThemeData,
