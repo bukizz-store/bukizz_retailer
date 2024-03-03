@@ -14,6 +14,10 @@ class Order extends ChangeNotifier {
     notifyListeners();
   }
 
+  Order() {
+    _fetchOrders();
+  }
+
   bool orderLoaded = true;
 
   bool get isOrderLoaded => orderLoaded;
@@ -22,11 +26,19 @@ class Order extends ChangeNotifier {
     orderLoaded = value;
   }
 
-  Future<void> fetchOrders() async {
-    orderLoaded = false;
-    FirebaseFirestore.instance.collection('orderDetails').where('retailerId', isEqualTo: AppConstants.retailer.id).get().then((value) {
-      _orders = value.docs.map((e) => OrderModel.fromMap(e.data())).toList();
-    });
-    orderLoaded = true;
+  Future<void> _fetchOrders() async {
+    try {
+      FirebaseFirestore.instance
+          .collection('orderDetails')
+          .where('retailerId', isEqualTo: AppConstants.retailer.id)
+          .snapshots()
+          .listen((snapshot) {
+        _orders =
+            snapshot.docs.map((doc) => OrderModel.fromFirestore(doc)).toList();
+        notifyListeners(); // Notify listeners about the change
+      });
+    } catch (e) {
+      print("Error fetching orders: $e");
+    }
   }
 }

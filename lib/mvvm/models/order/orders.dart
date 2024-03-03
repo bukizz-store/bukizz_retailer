@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../address/AddressModel.dart';
 
 class OrderModel{
@@ -71,4 +73,23 @@ class OrderModel{
     );
   }
 
+  factory OrderModel.fromFirestore(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return OrderModel(
+      orderId: data['orderId'] ?? '',
+      userId: data['userId'] ?? '',
+      orderDate: data['orderDate'] ?? '',
+      orderName: data['orderName'] ?? '',
+      totalAmount: data['totalAmount'] ?? 0.0,
+      saleAmount: data['saleAmount'] ?? 0.0,
+      deliveryCharge: data['deliveryCharge'] ?? 0,
+      address: Address.fromMap(data['address']),
+      cartData: data['cartData'],
+      cartLength: data['cartLength'] ?? 0,
+      status: data['status'] ?? '',
+      reviewId: data['reviewId'] ?? '',
+      retailerId: data['retailerId'] ?? '',
+      transactionId: data['transactionId'] ?? '',
+    );
+  }
 }
