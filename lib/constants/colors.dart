@@ -20,5 +20,6 @@ class AppColors{
   static const Color forgotPasswordTextColor =  Color(0xFF00579E);
   static const Color error =  Colors.grey;
   static const Color green = Colors.green;
-
+  static const Color tabcolor = Color(0xFF0074D1);
+  static const Color buttonColor = Color(0xFF0590FF);
 }
