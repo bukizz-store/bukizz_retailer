@@ -2,6 +2,7 @@ import 'package:bukizz_retailer/constants/colors.dart';
 import 'package:bukizz_retailer/constants/dimensions.dart';
 import 'package:bukizz_retailer/constants/images.dart';
 import 'package:bukizz_retailer/mvvm/viewModel/orders/orders.dart';
+import 'package:bukizz_retailer/mvvm/viewModel/product/product.dart';
 import 'package:bukizz_retailer/utils/widgets/text%20and%20textforms/Reusable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,6 +23,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     Dimensions dimensions=Dimensions(context);
+    var productData = context.read<Product>();
     return Consumer<Order>(builder: (context , orderData , child){
       return Scaffold(
         appBar: AppBar(
@@ -173,7 +175,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                                 ),
                                 ReusableText(text: 'All Product', fontSize: 16,fontWeight: FontWeight.w400,),
                                 SizedBox(height: dimensions.height24,),
-                                ReusableText(text: '40', fontSize: 16)
+                                ReusableText(text: productData.products.length.toString(), fontSize: 16)
                               ],
                             ),
                           ),
