@@ -1,12 +1,19 @@
+import 'dart:typed_data';
 import 'package:bukizz_retailer/constants/dimensions.dart';
 import 'package:bukizz_retailer/mvvm/viewModel/orders/orders.dart';
+import 'package:bukizz_retailer/utils/widgets/PDF/pdf_viewer.dart';
 import 'package:bukizz_retailer/utils/widgets/spacing/spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:printing/printing.dart';
+
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../../constants/colors.dart';
 import '../../../../../utils/widgets/text and textforms/Reusable_text.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class BillScreen extends StatefulWidget {
   static const route = '/bill';
@@ -17,6 +24,50 @@ class BillScreen extends StatefulWidget {
 }
 
 class _BillScreenState extends State<BillScreen> {
+
+  final String orderNumber = '#12345';
+  final String customerName = 'Stuti Awasthi';
+  final String address = '137, Shikshak Nagar, Kalyanpur kala(Near Vishwas Hospital, Purana Shivli Road), Kanpur Nagar. 208017 Kanpur Nagar UP';
+  final double totalPrice = 1720.0;
+  final double discount = 175.0;
+  final double deliveryCharges = 40.0;
+
+  // Future<Uint8List> generateInvoice() async {
+  //
+  //   final String orderNumber = '#12345';
+  //   final String customerName = 'Stuti Awasthi';
+  //   final String address = '137, Shikshak Nagar, Kalyanpur kala(Near Vishwas Hospital, Purana Shivli Road), Kanpur Nagar. 208017 Kanpur Nagar UP';
+  //   final double totalPrice = 1720.0;
+  //   final double discount = 175.0;
+  //   final double deliveryCharges = 40.0;
+  //   final pdf = pw.Document();
+  //   // pdf.addPage(
+  //       pdf.addPage(
+  //           pw.Page(
+  //               margin: const pw.EdgeInsets.all(10),
+  //               pageFormat: PdfPageFormat.a4,
+  //               build: (context) {
+  //                 return pw.Column(
+  //                     crossAxisAlignment: pw.CrossAxisAlignment.start,
+  //                     children: [
+  //                       pw.Row(
+  //                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+  //                           children: [
+  //                             pw.Header(text: "About Cat", level: 1),
+  //                             // pw.Image(pw.MemoryImage(byteList), fit: pw.BoxFit.fitHeight, height: 100, width: 100)
+  //                           ]
+  //                       ),
+  //                       pw.Divider(borderStyle: pw.BorderStyle.dashed),
+  //                       // pw.Paragraph(text: text),
+  //                     ]
+  //                 );
+  //               }
+  //           ));
+  //   );
+  //
+  //   return pdf.save();
+  // }
+
   @override
   Widget build(BuildContext context) {
     Dimensions dimensions=Dimensions(context);
@@ -94,7 +145,9 @@ class _BillScreenState extends State<BillScreen> {
                       children: [
                         ReusableText(text: 'Invoice', fontSize: 20,fontWeight: FontWeight.w700),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: ()async{
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => PDFViewer()));
+                          },
                           child: Container(
                             width: 30.w,
                             height: 24.sp,
@@ -107,7 +160,6 @@ class _BillScreenState extends State<BillScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
                                 ReusableText(text: 'Download', fontSize: 14,color: AppColors.buttonColor,),
                                 Icon(Icons.download,color: AppColors.buttonColor,),
                               ],
@@ -191,5 +243,32 @@ class _BillScreenState extends State<BillScreen> {
         ),
       );
     });
+  }
+
+  Future<Uint8List> _generatePdf(PdfPageFormat format, String title) async {
+    final pdf = pw.Document(version: PdfVersion.pdf_1_5, compress: true);
+    final font = await PdfGoogleFonts.nunitoExtraLight();
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: format,
+        build: (context) {
+          return pw.Column(
+            children: [
+              pw.SizedBox(
+                width: double.infinity,
+                child: pw.FittedBox(
+                  child: pw.Text(title, style: pw.TextStyle(font: font)),
+                ),
+              ),
+              pw.SizedBox(height: 20),
+              pw.Flexible(child: pw.FlutterLogo())
+            ],
+          );
+        },
+      ),
+    );
+
+    return pdf.save();
   }
 }
